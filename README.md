@@ -29,14 +29,9 @@ Según el análisis del requerimiento, se propone una solución basada en la arq
 
 <a href="https://docs.google.com/document/d/157z7me77FuGDuxJiueDiYWYunLp8-knbgp9CVu9Ig2E/edit?usp=sharing">Documento de funcionalidad</a>
 
-
 ## Contenedores y sistemas de Orquestación
 
 <img src="https://snz04pap002files.storage.live.com/y4mZtPfuGeB9F2usen60JHKt21INQcfvpPHOMY4HzqT8NYl91djp0OQy_eMrN8VjCo37x68ETxFeEAOySi0N4qGR2YSQGLHHpMuCcJvwJtRT1zOIMxDzqwLXtNcFOxgxvuKOIcMlqGtq3u_8CNEElCa_ZAGt41aDSHBfccp-Wxfj9aQXS0cv_asXmWP0D0C5aSW?width=671&height=681&cropmode=none" alt="Contenedores y Orquestación" />
-
-
-
-
 
 ## Versionamiento
 Para el control versiones se utilizará Azure Repos de tipo distribuido (Git), ya que éste brinda todas las herramientas y funciones de una herramienta de control de versiones y además se integra con la herramienta que se eligió para la automatización de pruebas, integración y despliegue (CI/CD) Azure Pipelines.
