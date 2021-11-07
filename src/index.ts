@@ -6,6 +6,7 @@ import Product from "./implements/Product";
 import Compra from "./implements/Compra";
 import Subasta from "./implements/Subasta";
 import Puja from "./implements/Puja";
+import Bus from "./implements/bus";
 
 const express = require("express");
 const app = express();
@@ -30,6 +31,7 @@ const product = new Product();
 const compra = new Compra();
 const subasta = new Subasta();
 const puja = new Puja();
+const bus  = new Bus();
 //^Finaliza instanciar objetos------
 
 //*test
@@ -129,6 +131,14 @@ app.post("/sa/product/regpuja", async (req: Request, res: Response, next: NextFu
 app.get("/sa/product/con/subastas", async (req: Request, res: Response, next: NextFunction) => {
   try {
     await subasta.FGConsultaSubastas(req, res);
+  } catch (e) {
+    next(e);
+  }
+});
+//*Registrar subasta:
+app.get("/sa/bus", async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    await bus.FGbusDirect(req, res);
   } catch (e) {
     next(e);
   }
