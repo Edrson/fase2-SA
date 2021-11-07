@@ -27,7 +27,7 @@ pipeline {
     
     stage('crearDockerImage') {
       steps {
-        sh 'docker build -t test2 .'
+        sh 'docker build -t test6 .'
       }
     }
    stage('correrDocker') {
