@@ -20,7 +20,7 @@ const Product_1 = __importDefault(require("./implements/Product"));
 const Compra_1 = __importDefault(require("./implements/Compra"));
 const Subasta_1 = __importDefault(require("./implements/Subasta"));
 const Puja_1 = __importDefault(require("./implements/Puja"));
-const bus_1 = __importDefault(require("./implements/bus"));
+const busInt_1 = __importDefault(require("./implements/busInt"));
 const express = require("express");
 const app = express();
 const morgan_1 = __importDefault(require("morgan"));
@@ -38,7 +38,7 @@ const product = new Product_1.default();
 const compra = new Compra_1.default();
 const subasta = new Subasta_1.default();
 const puja = new Puja_1.default();
-const bus = new bus_1.default();
+const bus = new busInt_1.default();
 //^Finaliza instanciar objetos------
 //*test
 app.get("/", (req, res) => {

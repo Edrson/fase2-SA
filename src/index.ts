@@ -6,7 +6,7 @@ import Product from "./implements/Product";
 import Compra from "./implements/Compra";
 import Subasta from "./implements/Subasta";
 import Puja from "./implements/Puja";
-import Bus from "./implements/bus";
+import Bus from "./implements/busInt";
 
 const express = require("express");
 const app = express();
