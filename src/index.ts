@@ -136,7 +136,7 @@ app.get("/sa/product/con/subastas", async (req: Request, res: Response, next: Ne
   }
 });
 //*Registrar subasta:
-app.get("/sa/bus", async (req: Request, res: Response, next: NextFunction) => {
+app.post("/sa/bus", async (req: Request, res: Response, next: NextFunction) => {
   try {
     await bus.FGbusDirect(req, res);
   } catch (e) {
