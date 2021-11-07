@@ -20,6 +20,7 @@ const Product_1 = __importDefault(require("./implements/Product"));
 const Compra_1 = __importDefault(require("./implements/Compra"));
 const Subasta_1 = __importDefault(require("./implements/Subasta"));
 const Puja_1 = __importDefault(require("./implements/Puja"));
+const bus_1 = __importDefault(require("./implements/bus"));
 const express = require("express");
 const app = express();
 const morgan_1 = __importDefault(require("morgan"));
@@ -37,6 +38,7 @@ const product = new Product_1.default();
 const compra = new Compra_1.default();
 const subasta = new Subasta_1.default();
 const puja = new Puja_1.default();
+const bus = new bus_1.default();
 //^Finaliza instanciar objetos------
 //*test
 app.get("/", (req, res) => {
@@ -145,6 +147,15 @@ app.post("/sa/product/regpuja", (req, res, next) => __awaiter(void 0, void 0, vo
 app.get("/sa/product/con/subastas", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield subasta.FGConsultaSubastas(req, res);
+    }
+    catch (e) {
+        next(e);
+    }
+}));
+//*Registrar subasta:
+app.get("/sa/bus", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        yield bus.FGbusDirect(req, res);
     }
     catch (e) {
         next(e);
