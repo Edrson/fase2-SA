@@ -1,12 +1,21 @@
 import { Request, Response } from "express";
 import { resGen } from "../models/resGen";
+import UserDB from "../implements/UserDB";
+import UserImp from "../implements/UserImp";
+import UserLogin from "../implements/UserLogin";
 //paquete de mongodb
 //uri de la BD, user, pass en mongodb
 const uri = "mongodb+srv://admin:451432@cluster0.1fct6.mongodb.net/retryWrites=true&w=majority";
 const axios = require('axios')
 
+
 class Bus {
-  
+  // protected AddUser: IAddUser;
+  // constructor(Adduser: IAddUser) {
+  //   this.AddUser = Adduser;
+  // }
+
+  //**************************************** comuninicacion con servicios de otros grupos ********************************************//
   async FGbusDirect(req: Request, res: Response) {
     try { 
     let rg = new resGen();
@@ -203,6 +212,57 @@ class Bus {
       res.json({ statusCode: res.statusCode, message: (error as Error).message });
     }
   }
+
+  //************************************** comunicacion de los otros grupos con nuestros servicios *****************************************//
+
+  async FGBusAgregarUsuario(req: Request, res: Response) { //crear usuario
+    const userDB = new UserDB();
+    const user = new UserImp(userDB);
+    await user.FGUserAdd(req, res);
+  }
+
+
+  async FGBusLogin(req: Request, res: Response) { //crear usuario
+    const userLogin = new UserLogin();
+    await userLogin.FGLogin(req, res);
+  }
+
+
+  async FGBusServiciosPropios(req: Request, res: Response) { //identifica el servicio solicitado y redirecciona
+    const rg = new resGen();
+
+    try{
+      if(req.body._id && req.body.nombre && req.body.apellido && req.body.foto && req.body.password && req.body.tipo && req.body.tarjetas){
+        //es registro de usuario
+        const userDB = new UserDB();
+        const user = new UserImp(userDB);
+        await user.FGUserAdd(req, res);
+
+      }else if (req.body._id && req.body.password && !req.body.nombre && !req.body.apellido && !req.body.foto && !req.body.password && !req.body.tipo && !req.body.tarjetas){
+        //login de usuario
+        const userLogin = new UserLogin();
+        await userLogin.FGLogin(req, res);
+  
+      }else if (req.body.categoria && req.body.precio && req.body.stock && req.body.nombre && req.body.descripcion && req.body.foto && req.body.proveedor){
+      //creacion de un producto
+
+      }else if (req.body.cliente && req.body.tarjeta && req.body.monto && req.body.total && req.body.fecha && req.body.detalle){
+        //compra de un producto
+  
+      }else{
+        console.log('entro al else');
+      }
+    }catch (error){
+      rg.valid = false;
+      rg.message = (error as Error).message;
+      console.log('error');
+    } finally {
+      return rg;
+    }
+    
+  }
+
+
 
 /*    async bus(req: Request): Promise<any> {
     const rg = new resGen();
