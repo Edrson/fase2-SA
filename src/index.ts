@@ -146,7 +146,7 @@ app.post("/sa/bus", async (req: Request, res: Response, next: NextFunction) => {
 //*Bus de servicios propios
 app.post("/sa/bus/grupo1/servicios", async (req: Request, res: Response, next: NextFunction) => {
   try {
-    await bus.FGBusServiciosPropios(req, res);
+    await bus.FGBusServiciosPropios2(req, res);
   } catch (e) {
     next(e);
   }

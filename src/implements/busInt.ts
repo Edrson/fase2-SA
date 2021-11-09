@@ -5,6 +5,7 @@ import UserImp from "../implements/UserImp";
 import UserLogin from "../implements/UserLogin";
 import Product from "../implements/Product";
 import Compra from "../implements/Compra";
+import { request } from "http";
 
 //paquete de mongodb
 //uri de la BD, user, pass en mongodb
@@ -227,6 +228,56 @@ class Bus {
         //login de usuario
         const userLogin = new UserLogin();
         await userLogin.FGLogin(req, res);
+  
+      }else if (req.body.categoria && req.body.precio && req.body.stock && req.body.nombre && req.body.descripcion && req.body.foto && req.body.proveedor){
+        //creacion de un producto
+        const product = new Product();
+        await product.FGProductAdd(req, res);
+
+      /*}else if (){
+        //modificacion de un producto
+        const product = new Product();
+        await product.FGProductUpdate(req, res);*/
+      }else if (req.body.categoria && req.body.nombre && !req.body.precio && !req.body.stock && !req.body.descripcion && !req.body.foto && !req.body.proveedor){
+        //eliminacion de un producto
+        const product = new Product();
+        await product.FGProductDelete(req, res);
+
+      }else if (req.body.cliente && req.body.tarjeta && req.body.monto && req.body.total && req.body.fecha && req.body.detalle){
+        //compra de un producto
+        const compra = new Compra();
+        await compra.FGRegistraCompra(req, res);
+
+      }else{
+        res.statusCode = 500;
+        res.json({
+          statusCode: res.statusCode,
+          message: "No se encuentra el Servicio, revise los parametros",
+        });
+      }
+    }catch (error){
+      rg.valid = false;
+      rg.message = (error as Error).message;
+      console.log('error');
+    } finally {
+      return rg;
+    }
+  }
+
+  async FGBusServiciosPropios2(req: Request, res: Response) { //identifica el servicio solicitado y redirecciona
+    const rg = new resGen();
+
+    try{
+      if(req.body.nombre && req.body.apellido && req.body.correo && req.body.password && req.body.tipo /*&& req.body.tarjetas*/){
+        //es registro de usuario
+        const userDB = new UserDB();
+        const user = new UserImp(userDB);
+        await user.FGUserAddExt(req, res);
+
+      }else if (req.body.correo && req.body.password && !req.body.nombre && !req.body.apellido && !req.body.tipo && !req.body.tarjetas){
+        //login de usuario
+        const userLogin = new UserLogin();
+        await userLogin.FGLoginExt(req, res);
   
       }else if (req.body.categoria && req.body.precio && req.body.stock && req.body.nombre && req.body.descripcion && req.body.foto && req.body.proveedor){
         //creacion de un producto
