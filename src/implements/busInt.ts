@@ -282,7 +282,7 @@ class Bus {
       }else if (req.body.categoria && req.body.precio && req.body.stock && req.body.nombre && req.body.descripcion && req.body.foto && req.body.proveedor){
         //creacion de un producto
         const product = new Product();
-        await product.FGProductAdd(req, res);
+        await product.FGProductAddExt(req, res);
 
       /*}else if (){
         //modificacion de un producto
@@ -293,10 +293,10 @@ class Bus {
         const product = new Product();
         await product.FGProductDelete(req, res);
 
-      }else if (req.body.cliente && req.body.tarjeta && req.body.monto && req.body.total && req.body.fecha && req.body.detalle){
+      }else if (req.body.idUser && req.body.nombre && req.body.nit && req.body.products){
         //compra de un producto
         const compra = new Compra();
-        await compra.FGRegistraCompra(req, res);
+        await compra.FGRegistraCompraExt(req, res);
 
       }else{
         res.statusCode = 500;

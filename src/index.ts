@@ -151,5 +151,13 @@ app.post("/sa/bus/grupo1/servicios", async (req: Request, res: Response, next: N
     next(e);
   }
 });
+//*Catalogo de productos ESB
+app.get("/sa/bus/grupo1/productos", async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    await product.FGCatalogueExt(req, res);
+  } catch (e) {
+    next(e);
+  }
+});
 
 app.listen(PORT, () => console.log(`Servidor escuchando en http://localhost:${PORT}`));

@@ -35,6 +35,32 @@ class Compra {
     }
   }
 
+  async FGRegistraCompraExt(req: Request, res: Response) {
+    try {
+      let rg = new resGen();
+      await client.connect();
+      //console.log(req.body);
+      rg = await this.FGRegistraCompraBDExt(req);
+      if (rg.valid == true) {
+        res.json({
+          statusCode: res.statusCode,
+          //message: "OPERATION_SUCCESFULL",
+          data: req.body
+        });
+      } else {
+        res.statusCode = 500;
+        res.json({
+          statusCode: res.statusCode,
+          message: rg.message,
+        });
+      }
+    } catch (error) {
+      console.log("Error en metodo FGRegistraCompra");
+      res.statusCode = 500;
+      //res.json({ statusCode: res.statusCode, message: error.message });
+    }
+  }
+
   async FGRegistraCompraBD(req: Request): Promise<any> {
     const rg = new resGen();
     try {
@@ -42,6 +68,22 @@ class Compra {
         rg.valid = true;
         rg.data = result;
         await this.Notificacion(req.body.cliente, JSON.stringify(req.body, null, 2));
+        //rg.message = `Usuario agregado con el siguiente _id: ${result.insertedId}`;
+    } catch (error) {
+      rg.valid = false;
+      //rg.message = error.message;
+    } finally {
+      return rg;
+    }
+  }
+
+  async FGRegistraCompraBDExt(req: Request): Promise<any> {
+    const rg = new resGen();
+    try {
+        const result = await client.db("SAProject").collection("Compra").insertOne(req.body);
+        rg.valid = true;
+        rg.data = result;
+        await this.Notificacion(req.body.idUser, JSON.stringify(req.body, null, 2));
         //rg.message = `Usuario agregado con el siguiente _id: ${result.insertedId}`;
     } catch (error) {
       rg.valid = false;
@@ -147,6 +189,31 @@ class Compra {
   }
   //^ Enviar notificacion de compra ---------------------------------------------------------------------------------
   async Notificacion(receptor:string, compra:string): Promise<any> {
+    var transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: '451432@gmail.com',
+        pass: '59580532'
+      }
+    });
+    
+    var mailOptions = {
+      from: 'AdministradorTangoCart@gmail.com',
+      to: receptor,
+      subject: 'Notificación de Compra',
+      text: compra
+    };
+
+    transporter.sendMail(mailOptions, function(error: Error, info: any){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+  }
+
+  async NotificacionExt(receptor:string, compra:string): Promise<any> {
     var transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
