@@ -26,5 +26,25 @@ class UserImp {
       return;
     }
   }
+
+  //para el consumo de los otros grupos
+  async FGUserAddExt(req: Request, res: Response) {
+    let rg = new resGen();
+    try {
+      rg = await this.AddUser.DB_AddUser(req.body);
+      if (rg.valid == true) {
+        res.json({ data: req.body });
+        return;
+      } else {
+        res.statusCode = 500;
+        res.json({ statusCode: res.statusCode, message: rg.message });
+        return;
+      }
+    } catch (error) {
+      res.statusCode = 500;
+      res.json({ statusCode: res.statusCode, message: rg.message });
+      return;
+    }
+  }
 }
 export default UserImp;

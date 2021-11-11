@@ -135,10 +135,26 @@ app.get("/sa/product/con/subastas", async (req: Request, res: Response, next: Ne
     next(e);
   }
 });
-//*Registrar subasta:
+//*Comunicarse a servicios de otros grupos:
 app.post("/sa/bus", async (req: Request, res: Response, next: NextFunction) => {
   try {
     await bus.FGbusDirect(req, res);
+  } catch (e) {
+    next(e);
+  }
+});
+//*Bus de servicios propios
+app.post("/sa/bus/grupo1/servicios", async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    await bus.FGBusServiciosPropios2(req, res);
+  } catch (e) {
+    next(e);
+  }
+});
+//*Catalogo de productos ESB
+app.get("/sa/bus/grupo1/productos", async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    await product.FGCatalogueExt(req, res);
   } catch (e) {
     next(e);
   }

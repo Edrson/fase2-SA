@@ -70,6 +70,37 @@ class UserLogin {
     }
   }
 
+  //login para el consumo de los demas grupos
+  async FGLoginExt(req: Request, res: Response) {
+    try {
+      let rg = new resGen();
+      await client.connect();
+      rg = await this.FGLoginBDExt(req);
+
+      if (rg.valid == true) {
+        //TODO verificar la respuesta de la base de datos, si las credenciales son correctas o incorrectas, y verificar tipo de usuario
+        //^Si las credenciales son correctas setear variable log en true
+        let log = true;
+        res.json({data: rg.data });
+       
+      }else{
+        res.json({
+          statusCode: res.statusCode,
+          message: rg.message,
+          login: {
+            correct: false,
+            userType: null,
+            token: null
+          },
+        });
+      }
+    } catch (error) {
+      console.log("Error en metodo FGLogin");
+      res.statusCode = 500;
+      res.json({ statusCode: res.statusCode, message: (error as Error).message });
+    }
+  }
+
   async FGLoginBD(req: Request): Promise<any> {
     const rg = new resGen();
     try {
@@ -82,6 +113,32 @@ class UserLogin {
         rg.data = result;
 
         
+
+      }else{
+        rg.valid = false;
+        //rg.data = result;
+        rg.message = "Credenciales no válidas";
+      }
+      
+    } catch (error) {
+      rg.valid = false;
+      rg.message = (error as Error).message;
+    } finally {
+      return rg;
+    }
+  }
+
+  async FGLoginBDExt(req: Request): Promise<any> {
+    const rg = new resGen();
+    try {
+      //console.log();
+      
+      const result = await client.db("SAProject").collection("Usuario").findOne({correo:req.body.correo, password:req.body.password}, { projection: { nombre: 1, correo: 1, tipo: 1 }});
+
+      if (result){
+        rg.valid = true;
+        rg.data = result;
+        //console.log(result);
 
       }else{
         rg.valid = false;
