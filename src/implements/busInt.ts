@@ -725,6 +725,7 @@ class Bus {
 									console.log("Código de respuesta >>", response.status)
 									res.statusCode = response.status
 									res.json({
+										statusCode: res.statusCode,
 										message: rg.message,
 										data: response.data
 									  });
