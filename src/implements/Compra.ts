@@ -238,6 +238,33 @@ class Compra {
     });
   }
 
+  async NotificacionCarrito(receptor:string, carro:string): Promise<any> {
+    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+receptor);
+    var transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: '451432@gmail.com',
+        pass: '59580532'
+      }
+    });
+    
+    var mailOptions = {
+      from: 'AdministradorTangoCart@gmail.com',
+      to: receptor,
+      subject: 'Tu carrito te espera',
+      text: 'Esperamos que vuelvas pronto, dejaste elementos en tu carrito: \n '+ carro
+    };
+
+    transporter.sendMail(mailOptions, function(error: Error, info: any){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+  }
+
+
 }
 
 export default Compra;

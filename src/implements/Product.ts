@@ -42,8 +42,7 @@ class Product {
       rg = await this.FGProductAddBDExt(req);
       if (rg.valid == true) {
         res.json({
-          statusCode: res.statusCode,
-          data: req.body
+         msg:"compra registrada con éxito"
         });
       } else {
         res.statusCode = 500;

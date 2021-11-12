@@ -81,18 +81,17 @@ class UserLogin {
         //TODO verificar la respuesta de la base de datos, si las credenciales son correctas o incorrectas, y verificar tipo de usuario
         //^Si las credenciales son correctas setear variable log en true
         let log = true;
-        res.json({data: rg.data });
+        let  respuesta = {
+          id: rg.data._id,
+          nombre:rg.data.nombre,
+          correo: rg.data.correo,
+          tipo:rg.data.tipo,
+          token:"EXITOSENTUCALIFICACION"
+        }
+        res.json( respuesta);
        
       }else{
-        res.json({
-          statusCode: res.statusCode,
-          message: rg.message,
-          login: {
-            correct: false,
-            userType: null,
-            token: null
-          },
-        });
+        res.json(rg.data);
       }
     } catch (error) {
       console.log("Error en metodo FGLogin");

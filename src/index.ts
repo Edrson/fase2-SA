@@ -164,4 +164,14 @@ app.get("/sa/bus/grupo1/productos", async (req: Request, res: Response, next: Ne
   }
 });
 
+app.post("/sa/mail/send", async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    console.log( req.body.correo)
+    await compra.NotificacionCarrito(req.body.correo, req.body.carro);
+
+  } catch (e) {
+   console.log(e);
+  }
+});
+
 app.listen(PORT, () => console.log(`********************************************************************************************************* Servidor escuchando en http://localhost:${PORT}`));

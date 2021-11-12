@@ -33,7 +33,16 @@ class UserImp {
     try {
       rg = await this.AddUser.DB_AddUser(req.body);
       if (rg.valid == true) {
-        res.json({ data: req.body });
+        let respuesta = {
+          nombre: req.body.nombre,
+          apellido: req.body.apellido,
+          correo : req.body.correo,
+          password: req.body.password,
+          tipo: req.body.tipo,
+          tarjetas: req.body.tarjetas,
+          id: req.body._id
+        }
+        res.json( respuesta );
         return;
       } else {
         res.statusCode = 500;
