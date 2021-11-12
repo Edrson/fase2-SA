@@ -15,63 +15,81 @@ const axios = require('axios')
 const URL_LOCAL = "http://localhost:3000";
 
 var urls: string[][] = [
-	//GRUPO1 
+	//GRUPO1
 	[
+		/*
 		"http://localhost:3000/sa/user/add",
 		"http://localhost:3000/sa/user/login",
 		"http://localhost:3000/sa/product/add",
 		"http://localhost:3000/sa/catalogue",
+		"http://localhost:3000/sa/product/regcompra",
+		*/
+
+		"http://34.125.203.249/sa/user/add",
+		"http://34.125.203.249/sa/user/login",
+		"http://34.125.203.249/sa/product/add",
+		"http://34.125.203.249/sa/catalogue",
+		"http://34.125.203.249/sa/product/regcompra"
+
+		
 	],
 
-	//GRUPO2 
+	//GRUPO2
 	[
 		"http://174.138.109.46/api/users/signup",
 		"http://174.138.109.46/api/users/signin",
 		"http://174.138.109.46/api/providers/newProduct",
-		"http://174.138.109.46/api/providers/allProducts"
+		"http://174.138.109.46/api/providers/allProducts",
+		"http://174.138.109.46/api/users/compra"
 	],
 
 	//GRUPO3
 	[
-		"/api/users/signup",
-		"/api/users/signin",
-		"/api/providers/newProduct",
-		"/api/providers/allProducts"
-	],
-	//GRUPO4 
-	[
-		"/api/users/signup",
-		"/api/users/signin",
-		"/api/providers/newProduct",
-		"/api/providers/allProducts"
-	],
-	//GRUPO5 
-	[
-		"/api/users/signup",
-		"/api/users/signin",
-		"/api/providers/newProduct",
-		"/api/providers/allProducts"
-	],
-	//GRUPO6
-	[
 		"http://sa-g6.herokuapp.com/api/users/signup",
 		"http://sa-g6.herokuapp.com/api/users/signin",
 		"http://sa-g6.herokuapp.com/api/providers/newProduct",
-		"http://sa-g6.herokuapp.com/api/providers/allProducts"
+		"http://sa-g6.herokuapp.com/api/providers/allProducts",
+		"http://sa-g6.herokuapp.com/api/users/compra"
+	],
+	//GRUPO4
+	[
+		"http://35.192.90.40:4000/api/users/signup",
+		"http://35.192.90.40:4000/api/users/signin",
+		"http://35.192.90.40:4000/api/providers/newProduct",
+		"http://35.192.90.40:4000/api/providers/allProducts",
+		"http://35.192.90.40:4000/api/users/compra"
+	],
+	//GRUPO5
+	[
+		"http://34.125.95.83:4000/api/users/signup",
+		"http://34.125.95.83:4000/api/users/signin",
+		"http://34.125.95.83:4000/api/providers/newProduct",
+		"http://34.125.95.83:4000/api/providers/allProducts",
+		"http://34.125.95.83:4000/api/users/compra"
+	],
+	//GRUPO6
+	[
+		"http://34.125.129.171:3000/api/users/signup",
+		"http://34.125.129.171:3000/api/users/signin",
+		"http://34.125.129.171:3000/api/providers/newProduct",
+		"http://34.125.129.171:3000/api/providers/allProducts",
+		"http://34.125.129.171:3000/api/users/compra"
 	],
 	//GRUPO7
 	[
 		"http://34.125.197.251:3000/api/users/signup",
 		"http://34.125.197.251:3000/api/users/signin",
 		"http://34.125.197.251:3000/api/providers/newProduct",
-		"http://34.125.197.251:3000/api/providers/allProducts"
+		"http://34.125.197.251:3000/api/providers/allProducts",
+		"http://34.125.197.251:3000/api/users/compra"
 	],
-	//GRUPO8 
+	//GRUPO8
 	[
 		"http://3.12.103.111:4000/api/users/signup",
 		"http://3.12.103.111:4000/api/users/signin",
 		"http://3.12.103.111:4000/api/providers/newProduct",
-		"http://3.12.103.111:4000/api/providers/allProducts"
+		"http://3.12.103.111:4000/api/providers/allProducts",
+		"http://3.12.103.111:4000/api/users/compra"
 	],
 
 ]
@@ -82,7 +100,7 @@ class Bus {
 
 //   //**************************************** comuninicacion con servicios de otros grupos ********************************************//
 //   async FGbusDirect(req: Request, res: Response) {
-//     try { 
+//     try {
 //     let rg = new resGen();
 //       switch (req.body.grupo) {
 
@@ -98,7 +116,7 @@ class Bus {
 //             console.log(error);
 //           })
 
-    
+
 //         case 26: //^ Grupos 2 y 6 ----------------------------------------------------------
 
 //           if(req.body.servicio == 1){ //^ registro de usuario
@@ -115,7 +133,7 @@ class Bus {
 //                   titular:req.body.titular,
 //                   numero:req.body.numero,
 //                   vencimiento:req.body.vencimiento
-//                 },  
+//                 },
 //               },
 //               headers: {'Content-Type': 'application/json'},
 //             })
@@ -144,7 +162,7 @@ class Bus {
 //               url: 'http://174.138.109.46/api/users/signin',
 //               data: {
 //                 correo:req.body.correo,
-//                 password:req.body.password  
+//                 password:req.body.password
 //               },
 //               headers: {'Content-Type': 'application/json'},
 //             })
@@ -165,7 +183,7 @@ class Bus {
 //           }
 //         else if(req.body.servicio == 3){ // ^ Crear producto
 //           await axios({
-           
+
 //             method: 'post',
 //             url: 'http://174.138.109.46/api/providers/newProduct',
 //             data: {
@@ -173,7 +191,7 @@ class Bus {
 //               descripcion:req.body.descripcion,
 //               foto:req.body.foto,
 //               precio:req.body.precio,
-//               stock:req.body.stock  
+//               stock:req.body.stock
 //             },
 //             headers: {
 //               'Content-Type': 'application/json',
@@ -195,8 +213,8 @@ class Bus {
 //             rg.message = error.response.statusText
 //           })
 //         }
-//         else if(req.body.servicio == 4){ // ^ Obtener productos       
-//           await axios({         
+//         else if(req.body.servicio == 4){ // ^ Obtener productos
+//           await axios({
 //             method: 'get',
 //             url: 'http://174.138.109.46/api/providers/products',
 //             headers: {
@@ -219,7 +237,7 @@ class Bus {
 //         }
 //         else if(req.body.servicio == 5){ // ^ Crear tarjeta
 //           await axios({
-           
+
 //             method: 'post',
 //             url: 'http://174.138.109.46/api/customers/card',
 //             data: {
@@ -250,21 +268,21 @@ class Bus {
 
 //           //^ --------------------------------------------------------------------------
 //           break;
-      
+
 //         default:
 //           break;
 //       }
 
-  
+
 //       //rg = await this.bus(req);
 
-//       if (rg.valid == true) {           
+//       if (rg.valid == true) {
 //         res.json({
 //           statusCode: res.statusCode,
 //           message: "OPERATION_SUCCESFULL",
 //           data:rg.data,
 //         });
-       
+
 //       }else{
 //         res.json({
 //           statusCode: res.statusCode,
@@ -293,7 +311,7 @@ class Bus {
         //login de usuario
         const userLogin = new UserLogin();
         await userLogin.FGLogin(req, res);
-  
+
       }else if (req.body.categoria && req.body.precio && req.body.stock && req.body.nombre && req.body.descripcion && req.body.foto && req.body.proveedor){
         //creacion de un producto
         const product = new Product();
@@ -343,8 +361,8 @@ class Bus {
         //login de usuario
         const userLogin = new UserLogin();
         await userLogin.FGLoginExt(req, res);
-  
-      }else if (req.body.categoria && req.body.precio && req.body.stock && req.body.nombre && req.body.descripcion && req.body.foto && req.body.proveedor){
+
+      }else if ((req.body.categoria || req.body.categorias) && req.body.precio && req.body.stock && req.body.nombre && req.body.descripcion && req.body.foto /*&& req.body.proveedor*/){
         //creacion de un producto
         const product = new Product();
         await product.FGProductAddExt(req, res);
@@ -353,10 +371,10 @@ class Bus {
         //modificacion de un producto
         const product = new Product();
         await product.FGProductUpdate(req, res);*/
-      }else if (req.body.categoria && req.body.nombre && !req.body.precio && !req.body.stock && !req.body.descripcion && !req.body.foto && !req.body.proveedor){
+      /*}else if (req.body.categoria && req.body.nombre && !req.body.precio && !req.body.stock && !req.body.descripcion && !req.body.foto && !req.body.proveedor){
         //eliminacion de un producto
         const product = new Product();
-        await product.FGProductDelete(req, res);
+        await product.FGProductDelete(req, res);*/
 
       }else if (req.body.idUser && req.body.nombre && req.body.nit && req.body.products){
         //compra de un producto
@@ -379,7 +397,7 @@ class Bus {
     }
   }
 
- 
+
 
 
 
@@ -408,7 +426,7 @@ class Bus {
 						case 1:
 							console.log("url by function is : " + this.get_url(req.body.grupo, req.body.servicio))
 							console.log("request body: " + req.body)
-							//Formato a data 
+							//Formato a data
 							let data = {
 								email: req.body.email,
 								_id: req.body._id,
@@ -470,7 +488,7 @@ class Bus {
 									}
 									res.statusCode = response.status;
 									res.json({message:rg.message});
-									
+
 								})
 							.catch(function (error: any) {
 									res.statusCode = error.response.status;
@@ -478,13 +496,13 @@ class Bus {
 									res.json({message:rg.message});
 							});
 
-								
+
 
 						break;
 
 					}
-				
-			
+
+
 
 					break;
 				//#endregion REGISTRO
@@ -495,7 +513,7 @@ class Bus {
 						case 1: // ------------------------------LOGIN GRUPO 1 ----------------------------------------
 							console.log("SERVICIO 2LOGIN G"+req.body.grupo +" url:"+ this.get_url(req.body.grupo, req.body.servicio));
 							console.log("request body: " + req.body)
-							//Formato a data 
+							//Formato a data
 							let data = {
 								_id: req.body._id,
 								password: req.body.password,
@@ -513,7 +531,7 @@ class Bus {
 									// console.log(response);
 									res.statusCode = response.status;
 									res.json(response.data);
-									
+
 								})
 								.catch(function (error: any) {
 									console.log("error login");
@@ -584,7 +602,7 @@ class Bus {
 
 						case 1: // ------------------------------CREAR_PRODUCTO GRUPO 1 ----------------------------------------
 							console.log("request body: " + req.body)
-							//Formato a data 
+							//Formato a data
 							let data = req.body; //se pasa la misma data (el servicio la filtra)
 							await axios({
 								method: 'post',
@@ -597,7 +615,7 @@ class Bus {
 									// console.log(response);
 									res.statusCode = response.status;
 									res.json(response.data);
-									
+
 								})
 								.catch(function (error: any) {
 									console.log("error login");
@@ -609,7 +627,7 @@ class Bus {
 
 
 						default: // ------------------------------CREAR_PRODUCTO GRUPO 2 ----------------------------------------
-				
+
 							console.log(req.body);
 							console.log(req.headers.token);
 							//dando formato a la data:
@@ -621,7 +639,7 @@ class Bus {
 									"foto": req.body.producto.foto,
 									"categorias": [req.body.producto.categoria],
 								}
-							
+
 							console.log(data_producto);
 
 								await axios({
@@ -667,7 +685,7 @@ class Bus {
 
 						case 1: // ------------------------------CATALOGO GRUPO 1 ----------------------------------------
 							console.log("request body: " + req.body)
-							//Formato a data 
+							//Formato a data
 							let data = req.body; //se pasa la misma data (el servicio la filtra)
 							await axios({
 								method: 'get',
@@ -679,7 +697,7 @@ class Bus {
 								 console.log(response.data);
 									res.statusCode = response.status
 									res.json(response.data);
-									
+
 								})
 								.catch(function (error: any) {
 									console.log("error login");
@@ -689,13 +707,13 @@ class Bus {
 									console.log(error);
 									res.statusCode = error.response.status;
 									res.json({message:rg.message});
-									
+
 								})
 						break;
 
 
 						default: // ------------------------------CATALOGO GRUPO2 ----------------------------------------
-				
+
 							console.log(req.body);
 								await axios({
 									method: 'get',
@@ -725,7 +743,88 @@ class Bus {
 
 					}
 					break;
-				//#endregion  SERVICIO3 CREAR_PRODUCTO
+				//#endregion SERVICIO4 CATALOGO
+
+
+				//#region SERVICIO5 COMPRA
+				case 5:
+					console.log("SERVICIO 5COMPRA G"+req.body.grupo +" url:"+ this.get_url(req.body.grupo, req.body.servicio));
+					switch (Number(req.body.grupo)) {
+						case 1: // ------------------------------CATALOGO GRUPO 1 ----------------------------------------
+							console.log("request body: " + req.body)
+							//Formato a data
+							let data = req.body; //se pasa la misma data (el servicio la filtra)
+							await axios({
+								method: 'post',
+								url: this.get_url(req.body.grupo, req.body.servicio),
+								data: data,
+								headers: { 'Content-Type': 'application/json' },
+							})
+								.then(function (response: any) {
+									// console.log("response");
+									// console.log(response);
+									res.statusCode = response.status;
+									res.json(response.data);
+
+								})
+								.catch(function (error: any) {
+									console.log("error login");
+									console.error(error);
+									res.statusCode = error.response.status;
+									res.json(error.response.data);
+								})
+
+						break;
+
+						default: // ------------------------------COMPRA GRUPO 2 ----------------------------------------
+
+							console.log(req.body);
+							console.log(req.headers.token);
+							//dando formato a la data:
+							let data_compra = {
+									"idUser": req.body.cliente,
+									"nombre": req.body.cliente,
+									"nit": "92658938",
+									"products": [req.body.detalle],
+								}
+
+							console.log(data_compra);
+
+								await axios({
+									method: 'post',
+									url: this.get_url(req.body.grupo, req.body.servicio),
+									data: data_compra,
+									headers: { 'Content-Type': 'application/json', 'token':req.headers.token}
+								})
+								.then(function (response: any) {
+									console.log(response);
+									console.log("Código de respuesta >>", response.status)
+									if (response.status == 201 || response.status == 200) {
+										rg.data = response.data
+										rg.message =response.data.msg
+									} else {
+										rg.valid = false
+										rg.message = 'G' + req.body.grupo + "-S" + req.body.servicio + ` ERROR:${response.statusText}`;
+									}
+									 res.statusCode = response.status
+									 res.json({
+									 	statusCode: res.statusCode,
+									 	message: rg.message,
+									   });
+								})
+								.catch(function (error: any) {
+									console.log("error login");
+									console.error(error);
+									res.statusCode = error.response.status;
+									res.json(error.response.data);
+								})
+
+							break;
+
+
+					}
+
+				//#endregion SERVICIO5 COMPRA
 			}
 
 		} catch (error) {
@@ -753,7 +852,7 @@ class Bus {
 		} catch (error) {
 		  rg.valid = false;
 		  rg.message = (error as Error).message;
-		} finally { 
+		} finally {
 		  return rg;
 		}
 	  }  */
