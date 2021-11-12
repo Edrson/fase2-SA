@@ -163,5 +163,13 @@ app.get("/sa/bus/grupo1/productos", async (req: Request, res: Response, next: Ne
     next(e);
   }
 });
+//*Catalogo de productos ESB - grupo 5
+app.get("/sa/bus/grupo1/productos", async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    await product.FGCatalogueExt2(req, res);
+  } catch (e) {
+    next(e);
+  }
+});
 
 app.listen(PORT, () => console.log(`********************************************************************************************************* Servidor escuchando en http://localhost:${PORT}`));

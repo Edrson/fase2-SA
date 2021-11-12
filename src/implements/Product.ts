@@ -298,6 +298,31 @@ class Product {
     }
   }
 
+  async FGCatalogueExt2(req: Request, res: Response) {
+    try {
+      let rg = new resGen();
+      await client.connect();
+      rg = await this.FGCatalogueBDExt2(req);
+
+      if (rg.valid == true) {
+        res.json({
+          statusCode: res.statusCode,
+          data: rg.data,
+        });
+      } else {
+        res.statusCode = 500;
+        res.json({
+          statusCode: res.statusCode,
+          message: rg.message,
+        });
+      }
+    } catch (error) {
+      console.log("Error en metodo FGCatalogue");
+      res.statusCode = 500;
+      res.json({ statusCode: res.statusCode, message: (error as Error).message });
+    }
+  }
+
   async FGCatalogueBD(req: Request): Promise<any> {
     const rg = new resGen();
     try {
@@ -317,6 +342,25 @@ class Product {
   }
   
   async FGCatalogueBDExt(req: Request): Promise<any> {
+    const rg = new resGen();
+    try {
+      //const cursor = await client.db("SAProject").collection("Categoria").find({ categoria: { $exists: true } } );
+      const cursor = await client.db("SAProject").collection("Categoria").find( { $or: [ { categoria: { $exists: true } }, { categorias: { $exists: true } } ] } );
+      //console.log(result);
+
+      const result = await cursor.toArray();
+
+      rg.valid = true;
+      rg.data = result;
+    } catch (error) {
+      rg.valid = false;
+      rg.message = (error as Error).message;
+    } finally {
+      return rg;
+    }
+  }
+
+  async FGCatalogueBDExt2(req: Request): Promise<any> {
     const rg = new resGen();
     try {
       //const cursor = await client.db("SAProject").collection("Categoria").find({ categoria: { $exists: true } } );
