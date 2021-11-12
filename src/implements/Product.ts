@@ -319,7 +319,8 @@ class Product {
   async FGCatalogueBDExt(req: Request): Promise<any> {
     const rg = new resGen();
     try {
-      const cursor = await client.db("SAProject").collection("Categoria").find({ categoria: { $exists: true } } );
+      //const cursor = await client.db("SAProject").collection("Categoria").find({ categoria: { $exists: true } } );
+      const cursor = await client.db("SAProject").collection("Categoria").find( { $or: [ { categoria: { $exists: true } }, { categorias: { $exists: true } } ] } );
       //console.log(result);
 
       const result = await cursor.toArray();
