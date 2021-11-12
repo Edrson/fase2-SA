@@ -136,6 +136,10 @@ app.get("/sa/product/con/subastas", async (req: Request, res: Response, next: Ne
   }
 });
 //*Comunicarse a servicios de otros grupos:
+
+
+
+
 app.post("/sa/bus", async (req: Request, res: Response, next: NextFunction) => {
   try {
     await bus.FGbusDirect(req, res);
@@ -160,4 +164,4 @@ app.get("/sa/bus/grupo1/productos", async (req: Request, res: Response, next: Ne
   }
 });
 
-app.listen(PORT, () => console.log(`Servidor escuchando en http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`********************************************************************************************************* Servidor escuchando en http://localhost:${PORT}`));

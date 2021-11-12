@@ -28,10 +28,10 @@ class Product {
           message: rg.message,
         });
       }
-    } catch (error) {
-      console.log("Erro en metodo FGProductAdd");
+    } catch (error:any) {
+      console.log("Error en metodo FGProductAdd");
       res.statusCode = 500;
-      //res.json({ statusCode: res.statusCode, message: error.message });
+      res.json({ statusCode: res.statusCode, message: error.response.statusText });
     }
   }
 

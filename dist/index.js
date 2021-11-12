@@ -28,7 +28,7 @@ const PORT = 3000;
 var cors = require("cors");
 app.use(cors());
 app.use(express.json());
-app.use(morgan_1.default("dev"));
+app.use((0, morgan_1.default)("dev"));
 //^Instanciar los objetos-----------
 const userDB = new UserDB_1.default();
 const user = new UserImp_1.default(userDB);
@@ -152,7 +152,6 @@ app.get("/sa/product/con/subastas", (req, res, next) => __awaiter(void 0, void 0
         next(e);
     }
 }));
-//*Registrar subasta:
 app.post("/sa/bus", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield bus.FGbusDirect(req, res);
