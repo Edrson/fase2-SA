@@ -277,12 +277,22 @@ class Product {
       let rg = new resGen();
       await client.connect();
       rg = await this.FGCatalogueBDExt(req);
-
+     let data:any = [];
       if (rg.valid == true) {
-        res.json({
-          statusCode: res.statusCode,
-          data: rg.data,
+        rg.data.forEach( (element:any) => {
+          let newitem = {
+            "id":element._id, 
+            "userID":element.proveedor,
+            "nombre":element.nombre,
+            "descripcion":element.descripcion,
+            "foto":element.foto,
+            "precio":element.precio,
+            "stock":element.stock,
+            "categorias":[element.categoria],
+          }
+          data.push(newitem);
         });
+        res.json(data);
       } else {
         res.statusCode = 500;
         res.json({
