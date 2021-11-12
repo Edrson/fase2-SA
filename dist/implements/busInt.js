@@ -14,22 +14,34 @@ const resGen_1 = require("../models/resGen");
 //uri de la BD, user, pass en mongodb
 const uri = "mongodb+srv://admin:451432@cluster0.1fct6.mongodb.net/retryWrites=true&w=majority";
 const axios = require('axios');
+const URL_LOCAL = "http://localhost:3000";
 class Bus {
     FGbusDirect(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 let rg = new resGen_1.resGen();
-                switch (req.body.grupo) {
+                switch (req.body.servicio) {
+                    //#region SERVICIO1 REGISTRO
                     case 1:
-                        //^Pruebas con nuestro back-------------------------------------------------
-                        axios.get(`http://34.125.203.249/sa/user/data/${req.body.iduser}`)
-                            .then(function (response) {
-                            console.log("data Respuest:", response);
-                        })
-                            .catch(function (error) {
-                            // handle error
-                            console.log(error);
-                        });
+                        switch (req.body.grupo) {
+                            case 1:
+                                //^Pruebas con nuestro back-------------------------------------------------
+                                var url = URL_LOCAL + "/sa/user/add";
+                                axios.get(url)
+                                    .then(function (response) {
+                                    console.log("data Respuest:", response);
+                                })
+                                    .catch(function (error) {
+                                    // handle error
+                                    console.error(error);
+                                });
+                                break;
+                            case 2:
+                            case 6:
+                                break;
+                        }
+                        break;
+                    //#endregion SERVICIO1 REGISTRO
                     case 26: //^ Grupos 2 y 6 ----------------------------------------------------------
                         if (req.body.servicio == 1) { //^ registro de usuario
                             yield axios({

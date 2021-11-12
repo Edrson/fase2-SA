@@ -135,7 +135,10 @@ app.get("/sa/product/con/subastas", async (req: Request, res: Response, next: Ne
     next(e);
   }
 });
-//*Registrar subasta:
+
+
+
+
 app.post("/sa/bus", async (req: Request, res: Response, next: NextFunction) => {
   try {
     await bus.FGbusDirect(req, res);
@@ -144,4 +147,4 @@ app.post("/sa/bus", async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-app.listen(PORT, () => console.log(`Servidor escuchando en http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`********************************************************************************************************* Servidor escuchando en http://localhost:${PORT}`));
